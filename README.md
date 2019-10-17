@@ -3,7 +3,8 @@ TCD Team Grand Nutrition Application
 
 
 ## Setup backend development environment
-* Minimum python 3.5 required to install django version 2.2.6 *
+** Minimum python 3.5 required to install django version 2.2.6 **
+
 We are using django for our backend
 
 First setup a python3 virtualenv and activate it. After that install using pip
