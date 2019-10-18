@@ -24,3 +24,34 @@ python3 manage.py runserver
 ```
 
 Then navigate to http://127.0.0.1:8000/ and you should see that your app is running
+
+
+## Setting up the front-end project environment
+
+ You’ll need to have Node >= 8.10 and npm >= 5.6 on your machine
+ 
+ Refer https://nodejs.org/en/ for setting up the node and npm
+ 
+
+Check your node version using
+```
+node -v
+``` 
+It should be >=8.10
+
+check your npm version using
+```
+npm -v
+```
+It should be >=5.6
+
+After that run
+```
+cd grand-ui
+```
+run 
+### `yarn install`
+
+### `yarn start`
+
+Then navigate to http://localhost:3000/ and you should see that your app is running
