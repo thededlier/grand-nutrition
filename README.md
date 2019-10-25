@@ -23,6 +23,27 @@ Check your django version
 python3 -m django --version
 ```
 
+### Setting up database
+
+We are using MySql for our DB. Make sure you have mysql server installled before proceeding
+
+1. Once installed create an empty database
+```
+CREATE DATABASE grand_app
+```
+
+2. Then setup python mysql client
+```
+pip install mysqlclient
+```
+
+3. Now we can run our migrations
+```
+python manage.py migrate
+```
+
+## Start server
+
 Now with our current working directory as grand-nutrition, to start the server
 ```
 cd backend
