@@ -11,7 +11,7 @@ class AppUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppUser
-        fields = ['id', 'name', 'username', 'appuserprofile']
+        fields = ['id', 'name', 'username', 'password', 'appuserprofile']
 
     def create(self, validated_data):
         return AppUser.objects.create(**validated_data)

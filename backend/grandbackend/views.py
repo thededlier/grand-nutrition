@@ -28,3 +28,16 @@ def app_user_details(request, pk):
     elif request.method == 'DELETE':
         app_user.delete()
         return HttpResponse(status=204)
+
+
+def app_user_insert(request):
+    """
+    Insert new user into database.
+    """
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = AppUserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
