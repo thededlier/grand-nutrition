@@ -15,7 +15,7 @@ pip install django==2.2.6
 We are using a package for REST
 
 ```
-pip install djangorestframework=3.10.3
+pip install djangorestframework==3.10.3
 ```
 
 Check your django version
