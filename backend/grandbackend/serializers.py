@@ -6,6 +6,9 @@ class AppUserProfileSerializer(serializers.ModelSerializer):
         model = AppUserProfile
         fields = ['dob', 'gender']
 
+    def create(self, validated_data):
+        return AppUserProfile.objects.create(**validated_data)
+
 class AppUserSerializer(serializers.ModelSerializer):
     appuserprofile = AppUserProfileSerializer(many=False, read_only=True)
 
