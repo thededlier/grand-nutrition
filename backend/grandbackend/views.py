@@ -1,9 +1,11 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-from grandbackend.models import AppUser
-from grandbackend.serializers import AppUserSerializer
+from grandbackend.models import AppUser, AppUserProfile
+from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer
 
+@api_view(['POST', 'GET', 'DELETE'])
 def app_user_details(request, pk):
     try:
         app_user = AppUser.objects.get(pk=pk)
@@ -29,6 +31,29 @@ def app_user_details(request, pk):
         app_user.delete()
         return HttpResponse(status=204)
 
+@api_view(['POST'])
+def app_user_profile_create(request, user_id):
+    """
+    Create new user profile
+    """
+
+    try:
+        app_user = AppUser.objects.get(pk=user_id)
+    except AppUser.DoesNotExist:
+        return HttpResponse(status=404)
+
+    try:
+        app_user_profile = AppUserProfile.objects.get(app_user_id=user_id)
+    except AppUserProfile.DoesNotExist:
+        data = JSONParser().parse(request)
+        serializer = AppUserProfileSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save(app_user = app_user)
+            return JsonResponse(serializer.data, status=201)
+        else:
+            return JsonResponse(serializer.errors, status=400)
+
+    return JsonResponse({ 'error': 'User profile already exists' }, status=404)
 
 def app_user_insert(request):
     """
