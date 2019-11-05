@@ -1,5 +1,4 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,76 +7,78 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import {withStyles} from "@material-ui/styles";
 
-const useStyles = makeStyles(theme => ({
+const styles = () => ({
     root: {
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        marginRight: 2,
     },
     title: {
         flexGrow: 1,
     },
-}));
+});
 
-export default function MenuAppBar() {
-    const classes = useStyles();
-    const [auth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+class MenuAppBar extends  React.Component {
 
-    const handleMenu = event => {
-        setAnchorEl(event.currentTarget);
+    handleMenu = () => {
+        this.props.setIsOpen(true);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    handleClose = () => {
+        this.props.setIsOpen(false);
     };
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        Grand Nutrition
-                    </Typography>
-                    {auth && (
-                        <div>
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
-                            </Menu>
-                        </div>
-                    )}
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+
+    render(){
+        const {classes} = this.props;
+        return (
+            <div className={classes.root}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" className={classes.title}>
+                            Grand Nutrition
+                        </Typography>
+                        {this.props.isAuthenticated && (
+                            <div>
+                                <IconButton
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={() => this.handleMenu()}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={this.props.isOpen}
+                                    onClose={() => this.handleClose()}
+                                >
+                                    <MenuItem onClick={() => this.handleClose()}>Profile</MenuItem>
+                                    <MenuItem onClick={() => this.handleClose()}>My account</MenuItem>
+                                </Menu>
+                            </div>
+                        )}
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
+    }
 }
+
+export  default withStyles(styles)(MenuAppBar);
