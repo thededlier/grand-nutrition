@@ -4,7 +4,7 @@ from grandbackend.models import AppUser, AppUserProfile
 class AppUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUserProfile
-        fields = ['dob', 'gender']
+        fields = ['dob', 'gender', 'weight', 'height', 'activityLevel', 'usersGoal']
 
     def create(self, validated_data):
         return AppUserProfile.objects.create(**validated_data)
