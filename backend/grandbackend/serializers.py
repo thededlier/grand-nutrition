@@ -9,6 +9,11 @@ class AppUserProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return AppUserProfile.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        [setattr(instance, k, v) for k, v in validated_data.items()]
+        instance.save()
+        return instance
+
 class AppUserSerializer(serializers.ModelSerializer):
     appuserprofile = AppUserProfileSerializer(many=False, read_only=True)
 
