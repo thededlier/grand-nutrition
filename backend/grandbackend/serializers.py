@@ -4,10 +4,15 @@ from grandbackend.models import AppUser, AppUserProfile
 class AppUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUserProfile
-        fields = ['dob', 'gender']
+        fields = ['dob', 'gender', 'weight', 'height', 'activityLevel', 'usersGoal']
 
     def create(self, validated_data):
         return AppUserProfile.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        [setattr(instance, k, v) for k, v in validated_data.items()]
+        instance.save()
+        return instance
 
 class AppUserSerializer(serializers.ModelSerializer):
     appuserprofile = AppUserProfileSerializer(many=False, read_only=True)

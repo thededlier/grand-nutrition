@@ -55,6 +55,28 @@ def app_user_profile_create(request, user_id):
 
     return JsonResponse({ 'error': 'User profile already exists' }, status=404)
 
+@api_view(['GET', 'POST'])
+def app_user_profile_details(request, user_id):
+    try:
+        app_user_profile = AppUserProfile.objects.get(app_user_id=user_id)
+    except AppUserProfile.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = AppUserProfileSerializer(app_user_profile)
+        return JsonResponse(serializer.data, status=201)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = AppUserProfileSerializer(app_user_profile, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+    else:
+        return HttpResponse(status=500)
+
+
 def app_user_insert(request):
     """
     Insert new user into database.
