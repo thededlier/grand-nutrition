@@ -82,8 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'grand_app',
-        'USER': 'root',
-        'PASSWORD': 'newpassword'
+        'USER': 'root'
     }
 }
 
