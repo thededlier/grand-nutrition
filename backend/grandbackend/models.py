@@ -14,3 +14,14 @@ class AppUserProfile(models.Model):
     height = models.DecimalField(max_digits=4, decimal_places=1)
     activityLevel = models.IntegerField() # Sedantry = 0, Lightly Active = 1, Moderately Active = 2, Very Active = 3
     usersGoal = models.IntegerField() # Increase Weight = 0, 1 = Maintain Weight, 2 = Lose Weight
+
+class FoodItem(models.Model):
+    name = models.CharField(max_length = 256)
+    energy_100g = models.DecimalField(decimal_places = 6)
+    cholesterol_100g = models.DecimalField(decimal_places = 6)
+    carbohydrates_100g = models.DecimalField(decimal_places = 6)
+    sugars_100g = models.DecimalField(decimal_places = 6)
+    proteins_100g = models.DecimalField(decimal_places = 6)
+    mean_pro_car = models.DecimalField(decimal_places = 6)
+    user_goal_map = models.CharField(max_length = 128)
+    activity_map = models.CharField(max_length = 128)

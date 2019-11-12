@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from grandbackend.models import AppUser, AppUserProfile
+from grandbackend.models import AppUser, AppUserProfil, FoodItem
 
 class AppUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +28,8 @@ class AppUserSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.save()
         return instance
+
+class FoodItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodItem
+        fields = ['id', 'name', 'energy_100g', 'cholesterol_100g', 'carbohydrates_100g', 'sugars_100g', 'proteins_100g', 'user_goal_map', 'activity_map']
