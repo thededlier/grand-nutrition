@@ -4,6 +4,9 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from grandbackend.models import AppUser, AppUserProfile, FoodItem
 from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer, FoodItemSerializer
+from .recsys import *
+import pickle
+import os
 
 @api_view(['POST', 'GET', 'DELETE'])
 def app_user_details(request, pk):
@@ -94,11 +97,34 @@ def food_item_details(request, pk):
     """
     Get food data for a particular item
     """
-    import pdb; pdb.set_trace()
     try:
         food_item = FoodItem.objects.get(pk=pk)
     except FoodItem.DoesNotExist:
         return HttpResponse(status=404)
 
-    serializer = AppUserSerializer(app_user)
+    serializer = FoodItemSerializer(food_item)
+    return JsonResponse(serializer.data)
+
+@api_view(['GET'])
+def food_recommend(request, user_id):
+    """
+    Gives user recommendation
+    """
+
+    dirname = os.path.dirname(__file__)
+
+    interactions = pickle.load(open(os.path.join(dirname, '../user-models/int.pkl'), 'rb'))
+    user_dict = pickle.load(open(os.path.join(dirname, '../user-models/user_dict.pkl'), 'rb'))
+    food_dict = pickle.load(open(os.path.join(dirname, "../user-models/food_dict.pkl"), 'rb'))
+    loaded_model = pickle.load(open(os.path.join(dirname, "../user-models/model.pkl"), 'rb'))
+
+    # Returns ids [food_1, food_2, ...]
+    rec = sample_recommendation_user(model = loaded_model,interactions = interactions,user_id = user_id, user_dict = user_dict, item_dict = food_dict,threshold = 0,nrec_items = 5, show = False)
+
+    try:
+        food_item = FoodItem.objects.filter(id_in=rec)
+    except:
+        return HttpResponse(status=500)
+
+    serializer=FoodItemSerializer(food_item, many = True)
     return JsonResponse(serializer.data)
