@@ -2,8 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-from grandbackend.models import AppUser, AppUserProfile
-from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer
+from grandbackend.models import AppUser, AppUserProfile, FoodItem
+from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer, FoodItemSerializer
 
 @api_view(['POST', 'GET', 'DELETE'])
 def app_user_details(request, pk):
@@ -76,7 +76,7 @@ def app_user_profile_details(request, user_id):
     else:
         return HttpResponse(status=500)
 
-
+@api_view(['POST'])
 def app_user_insert(request):
     """
     Insert new user into database.
@@ -88,3 +88,17 @@ def app_user_insert(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+@api_view(['GET'])
+def food_item_details(request, pk):
+    """
+    Get food data for a particular item
+    """
+    import pdb; pdb.set_trace()
+    try:
+        food_item = FoodItem.objects.get(pk=pk)
+    except FoodItem.DoesNotExist:
+        return HttpResponse(status=404)
+
+    serializer = AppUserSerializer(app_user)
+    return JsonResponse(serializer.data)
