@@ -1,11 +1,17 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
+import os
 import sqlalchemy as db
+
+from sklearn.preprocessing import MinMaxScaler
+
+print("Executing in ", os.path.abspath(__file__))
 
 print("Loading data")
 columns = ['code', 'product_name', 'cholesterol_100g', 'sugars_100g', 'energy_100g', 'proteins_100g', 'carbohydrates_100g']
-food_data = pd.read_csv('data/en.openfoodfacts.org.products.tsv', sep='\t', nrows=300, usecols = columns)
+
+# Select encoding to match database encoding
+food_data = pd.read_csv('/home/rohan/Documents/grand-nutrition/data/en.openfoodfacts.org.products.tsv', sep='\t', nrows=300, usecols = columns, encoding="latin-1")
 
 food_data.fillna(food_data.median(), inplace=True)
 
@@ -43,25 +49,26 @@ food_data['activity_map'] = np.nan
 
 for i in food_data.index:
     if food_data['mean_pro_car'][i] < 0.4:
-        food_data['user_goal'][i] = 'lose'
+        food_data['user_goal_map'][i] = 'lose'
     elif food_data['mean_pro_car'][i] < 0.5:
-        food_data['user_goal'][i] = 'maintain'
+        food_data['user_goal_map'][i] = 'maintain'
     else:
-        food_data['user_goal'][i] = 'gain'
+        food_data['user_goal_map'][i] = 'gain'
 
     if food_data['energy_100g'][i] < 1300:
-        food_data['activity'][i] = 'sedantry'
+        food_data['activity_map'][i] = 'sedantry'
     elif food_data['energy_100g'][i] < 1750:
-        food_data['activity'][i] = 'lightly_active'
+        food_data['activity_map'][i] = 'lightly_active'
     elif food_data['energy_100g'][i] < 2200:
-        food_data['activity'][i] = 'moderately_active'
+        food_data['activity_map'][i] = 'moderately_active'
     else:
-        food_data['activity'][i] = 'very_active'
+        food_data['activity_map'][i] = 'very_active'
 
+food_data = food_data.round(4)
 print("generated food data")
 food_data.to_csv("../food_data.csv")
-
+print(food_data.head())
 # Uplifting to sql
 print("Starting sql uplift")
 engine = db.create_engine('mysql+mysqldb://grand_app:grand_app@localhost:3306/grand_app')
-food_data.to_sql('food_item', engine, if_exists='replace')
+food_data.to_sql('food_item', engine, if_exists='replace', index=False)

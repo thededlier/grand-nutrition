@@ -17,11 +17,11 @@ class AppUserProfile(models.Model):
 
 class FoodItem(models.Model):
     name = models.CharField(max_length = 256)
-    energy_100g = models.DecimalField(decimal_places = 6)
-    cholesterol_100g = models.DecimalField(decimal_places = 6)
-    carbohydrates_100g = models.DecimalField(decimal_places = 6)
-    sugars_100g = models.DecimalField(decimal_places = 6)
-    proteins_100g = models.DecimalField(decimal_places = 6)
-    mean_pro_car = models.DecimalField(decimal_places = 6)
+    energy_100g = models.DecimalField(max_digits = 24, decimal_places = 6)
+    cholesterol_100g = models.DecimalField(max_digits = 24, decimal_places = 6)
+    carbohydrates_100g = models.DecimalField(max_digits = 24, decimal_places = 6)
+    sugars_100g = models.DecimalField(max_digits = 24, decimal_places = 6)
+    proteins_100g = models.DecimalField(max_digits = 24, decimal_places = 6)
+    mean_pro_car = models.DecimalField(max_digits = 24, decimal_places = 6)
     user_goal_map = models.CharField(max_length = 128)
     activity_map = models.CharField(max_length = 128)

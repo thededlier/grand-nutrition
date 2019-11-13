@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from grandbackend.models import AppUser, AppUserProfil, FoodItem
+from grandbackend.models import AppUser, AppUserProfile, FoodItem
 
 class AppUserProfileSerializer(serializers.ModelSerializer):
     class Meta:

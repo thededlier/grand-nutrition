@@ -94,6 +94,7 @@ def food_item_details(request, pk):
     """
     Get food data for a particular item
     """
+    import pdb; pdb.set_trace()
     try:
         food_item = FoodItem.objects.get(pk=pk)
     except FoodItem.DoesNotExist:
