@@ -71,4 +71,4 @@ print(food_data.head())
 # Uplifting to sql
 print("Starting sql uplift")
 engine = db.create_engine('mysql+mysqldb://grand_app:grand_app@localhost:3306/grand_app')
-food_data.to_sql('food_item', engine, if_exists='replace', index=False)
+food_data.to_sql('grandbackend_fooditem', engine, if_exists='replace', index=False)
