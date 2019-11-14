@@ -25,3 +25,9 @@ class FoodItem(models.Model):
     mean_pro_car = models.DecimalField(max_digits = 24, decimal_places = 6)
     user_goal_map = models.CharField(max_length = 128)
     activity_map = models.CharField(max_length = 128)
+
+class UserFoodHistory(models.Model):
+    user = models.ForeignKey('AppUser', on_delete = models.CASCADE)
+    food = models.ForeignKey('FoodItem', on_delete = models.CASCADE) 
+    food_time = models.CharField(max_length = 128)
+    rating = models.IntegerField()
