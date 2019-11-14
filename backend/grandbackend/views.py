@@ -1,5 +1,4 @@
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from grandbackend.models import AppUser, AppUserProfile, FoodItem
@@ -122,9 +121,9 @@ def food_recommend(request, user_id):
     rec = sample_recommendation_user(model = loaded_model,interactions = interactions,user_id = user_id, user_dict = user_dict, item_dict = food_dict,threshold = 0,nrec_items = 5, show = False)
 
     try:
-        food_item = FoodItem.objects.filter(id_in=rec)
+        food_item = FoodItem.objects.filter(id__in=rec)
     except:
         return HttpResponse(status=500)
 
-    serializer=FoodItemSerializer(food_item, many = True)
-    return JsonResponse(serializer.data)
+    serializer = FoodItemSerializer(food_item, many = True)
+    return JsonResponse(serializer.data, safe = False)
