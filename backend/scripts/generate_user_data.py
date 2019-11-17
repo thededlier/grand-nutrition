@@ -2,6 +2,7 @@ import pandas as pd
 import random
 import os
 from faker import Faker
+import pickle
 
 faker = Faker()
 
@@ -82,10 +83,22 @@ user_data.head()
 user_profile_data.head()
 user_food_history_data.head()
 
-print('Printing to csv at ', os.getcwd())
+print('Saving at ', os.getcwd())
 
-user_data.to_csv('./user_data.csv', ignore_index = True)
-user_profile_data.to_csv('./user_data.csv', ignore_index = True)
-user_food_history_data.to_csv('./user_data.csv', ignore_index = True)
+f = open('user_data.pkl', 'wb')
+pickle.dump(user_data, f)
+f.close()
+
+f = open('user_profile_data.pkl', 'wb')
+pickle.dump(user_profile_data, f)
+f.close()
+
+f = open('user_food_history_data.pkl', 'wb')
+pickle.dump(user_food_history_data, f)
+f.close()
+
+# user_data.to_csv('./user_data.csv', ignore_index = True)
+# user_profile_data.to_csv('./user_data.csv', ignore_index = True)
+# user_food_history_data.to_csv('./user_data.csv', ignore_index = True)
 
 print('Done!')
