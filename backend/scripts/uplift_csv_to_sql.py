@@ -11,7 +11,7 @@ print("Loading data")
 columns = ['code', 'product_name', 'cholesterol_100g', 'sugars_100g', 'energy_100g', 'proteins_100g', 'carbohydrates_100g']
 
 # Select encoding to match database encoding
-food_data = pd.read_csv('/home/rohan/Documents/grand-nutrition/data/en.openfoodfacts.org.products.tsv', sep='\t', nrows=300, usecols = columns, encoding="latin-1")
+food_data = pd.read_csv('/home/rohan/Documents/grand-nutrition/data/en.openfoodfacts.org.products.tsv', sep='\t', nrows=2000, usecols = columns, encoding="latin-1")
 
 food_data.fillna(food_data.median(), inplace=True)
 
@@ -22,8 +22,8 @@ food_data.rename(columns = { 'product_name': 'name', 'code': 'id' }, inplace = T
 
 # Removing outliers
 print("Removing outliers")
-food_data = food_data[food_data['proteins_100g'] < 20]
-food_data = food_data[food_data['carbohydrates_100g'] > 20]
+# food_data = food_data[food_data['proteins_100g'] < 20]
+# food_data = food_data[food_data['carbohydrates_100g'] > 20]
 
 # Scaling data
 print("Scaling data")

@@ -79,9 +79,9 @@ for id in range(1, 5000):
 
         history_counter += 1
 
-user_data.head()
-user_profile_data.head()
-user_food_history_data.head()
+print(user_data.head())
+print(user_profile_data.head())
+print(user_food_history_data.head())
 
 print('Saving at ', os.getcwd())
 
