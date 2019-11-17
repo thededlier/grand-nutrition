@@ -1,8 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-from grandbackend.models import AppUser, AppUserProfile, FoodItem
-from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer, FoodItemSerializer
+from grandbackend.models import AppUser, AppUserProfile, FoodItem, UserFoodHistory
+from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer, FoodItemSerializer, UserFoodHistorySerializer
 from .recsys import *
 import pickle
 import os
@@ -126,4 +126,17 @@ def food_recommend(request, user_id):
         return HttpResponse(status=500)
 
     serializer = FoodItemSerializer(food_item, many = True)
+    return JsonResponse(serializer.data, safe = False)
+
+@api_view(['GET'])
+def food_history(request, user_id):
+    """
+    Gives the users food history
+    """
+    try:
+        food_history = UserFoodHistory.objects.filter(user_id__in=[user_id])
+    except Exception as e:
+        return JsonResponse({ 'error': e }, status = 400)
+
+    serializer = UserFoodHistorySerializer(food_history, many = True)
     return JsonResponse(serializer.data, safe = False)
