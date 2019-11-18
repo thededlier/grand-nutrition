@@ -6,6 +6,7 @@ import SignUp from "./SignUp/SignUp.component";
 import {Route, Router} from 'react-router-dom';
 import DashboardContainer from "../containers/Dashboard.container";
 import MenuAppBarContainer from "../containers/MenuAppBar.container";
+import ExplicitQuestions from "./ExplicitQuestions/ExplicitQuestions.component";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                   <Route path="/signin" component={SignInComponent} />
                   <Route path="/signup" component={SignUp} />
                   <Route path="/dashboard" component={DashboardContainer} />
+                  <Route path="/questions" component={ExplicitQuestions} />
               </div>
           </Router>
       </React.Fragment>

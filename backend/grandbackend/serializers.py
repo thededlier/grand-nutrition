@@ -34,7 +34,7 @@ class FoodItemSerializer(serializers.ModelSerializer):
         model = FoodItem
         fields = ['id', 'name', 'energy_100g', 'cholesterol_100g', 'carbohydrates_100g', 'sugars_100g', 'proteins_100g', 'user_goal_map', 'activity_map']
 
-class UserFoodHistorySerializer(serializer.ModelSerializer):
+class UserFoodHistorySerializer(serializers.ModelSerializer):
     fooditem = FoodItemSerializer(many=False, read_only=True)
 
     class Meta:
