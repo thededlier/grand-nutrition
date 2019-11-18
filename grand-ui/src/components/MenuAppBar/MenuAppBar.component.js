@@ -23,14 +23,14 @@ const styles = () => ({
 
 class MenuAppBar extends  React.Component {
 
-    handleMenu = () => {
+    handleMenu = (event) => {
         this.props.setIsOpen(true);
+        this.anchorEl = event.currentTarget;
     };
 
     handleClose = () => {
         this.props.setIsOpen(false);
     };
-
 
     render(){
         const {classes} = this.props;
@@ -50,7 +50,7 @@ class MenuAppBar extends  React.Component {
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
                                     aria-haspopup="true"
-                                    onClick={() => this.handleMenu()}
+                                    onClick={(event) => this.handleMenu(event)}
                                     color="inherit"
                                 >
                                     <AccountCircle />
@@ -67,6 +67,7 @@ class MenuAppBar extends  React.Component {
                                         horizontal: 'right',
                                     }}
                                     open={this.props.isOpen}
+                                    anchorEl={this.anchorEl}
                                     onClose={() => this.handleClose()}
                                 >
                                     <MenuItem onClick={() => this.handleClose()}>Profile</MenuItem>
