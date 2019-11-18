@@ -112,13 +112,22 @@ def food_recommend(request, user_id):
 
     dirname = os.path.dirname(__file__)
 
-    interactions = pickle.load(open(os.path.join(dirname, '../user-models/int.pkl'), 'rb'))
+    interactions = pickle.load(open(os.path.join(dirname, '../user-models/interactions.pkl'), 'rb'))
     user_dict = pickle.load(open(os.path.join(dirname, '../user-models/user_dict.pkl'), 'rb'))
     food_dict = pickle.load(open(os.path.join(dirname, "../user-models/food_dict.pkl"), 'rb'))
     loaded_model = pickle.load(open(os.path.join(dirname, "../user-models/model.pkl"), 'rb'))
 
     # Returns ids [food_1, food_2, ...]
-    rec = sample_recommendation_user(model = loaded_model,interactions = interactions,user_id = user_id, user_dict = user_dict, item_dict = food_dict,threshold = 0,nrec_items = 5, show = False)
+    rec = sample_recommendation_user(
+        model = loaded_model,
+        interactions = interactions,
+        user_id = user_id,
+        user_dict = user_dict,
+        item_dict = food_dict,
+        threshold = 0,
+        nrec_items = 5,
+        show = False
+    )
 
     try:
         food_item = FoodItem.objects.filter(id__in=rec)
