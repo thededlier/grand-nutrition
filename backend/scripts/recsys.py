@@ -1,8 +1,4 @@
-"""
-@author: Aayush Agrawal
-@Purpose - Re-usable code in Python 3 for Recommender systems
-ML-small-dataset - https://grouplens.org/datasets/movielens/
-"""
+
 
 import pandas as pd
 import numpy as np
