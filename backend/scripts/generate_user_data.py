@@ -27,7 +27,7 @@ for id in range(1, 5000):
     username = name
     password = name
 
-    user_data.append({ 'id': id, 'name': name , 'username': username, 'password': password }, ignore_index=True)
+    user_data = user_data.append({ 'id': id, 'name': name , 'username': username, 'password': password }, ignore_index=True)
 
     gender = random.choice([0, 1, 2])
     weight = random.randint(50, 120)  # In kgs
@@ -35,7 +35,7 @@ for id in range(1, 5000):
     usersGoal = random.choice([0, 1, 2])
     activityLevel = random.choice([0, 1, 2, 3])
 
-    user_profile_data.append({
+    user_profile_data = user_profile_data.append({
         'id': id,
         'gender': gender,
         'weight': weight,
