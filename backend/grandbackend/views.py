@@ -97,7 +97,7 @@ def food_item_details(request, pk):
     Get food data for a particular item
     """
     try:
-        food_item = FoodItem.objects.get(pk=pk)
+        food_item = FoodItem.objects.get(pk=str(pk))
     except FoodItem.DoesNotExist:
         return HttpResponse(status=404)
 
@@ -147,5 +147,12 @@ def food_history(request, user_id):
     except Exception as e:
         return JsonResponse({ 'error': e }, status = 400)
 
-    serializer = UserFoodHistorySerializer(food_history, many = True)
-    return JsonResponse(serializer.data, safe = False)
+    history_serializer = UserFoodHistorySerializer(food_history, many=True)
+
+    food_ids = list()
+    for food in food_history:
+        food_ids.append(str(food.food_id))
+
+    food_items = FoodItem.objects.filter(id__in=food_ids)[:5]
+    food_serializer = FoodItemSerializer(food_items, many=True)
+    return JsonResponse({ 'history': history_serializer.data, 'food_items': food_serializer.data}, safe = False)
