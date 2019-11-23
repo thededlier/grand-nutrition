@@ -7,11 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Copyright from "../CopyRight/CopyRight.component";
 import FoodItemCard from "../FoodItemCard/FoodItemCard.component";
+import UserFoodHistory from "../UserFoodHistory/UserFoodHistory.component";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
-
 
 const drawerWidth = 240;
 
@@ -125,7 +125,7 @@ export default function Dashboard() {
                         </Grid>
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
-
+                              <UserFoodHistory/>
                             </Paper>
                         </Grid>
                         <Grid item xs={12}  >
