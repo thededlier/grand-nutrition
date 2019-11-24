@@ -12,6 +12,8 @@ import { red } from '@material-ui/core/colors';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {ListItemText} from "@material-ui/core";
+import List from "@material-ui/core/List";
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -50,9 +52,17 @@ export default function FoodItemCard(props) {
         setIsLiked('default');
         setIsDisLiked(val);
     };
+    console.log(props.foodDetails);
+    const foodDetails = props.foodDetails;
     return (
         <Card className={classes.card}>
-            <CardHeader/>
+            <CardHeader subheader={foodDetails.name}
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+            />
             <CardMedia
                 className={classes.media}
                 image={'../images/' + props.imageId + '.jpg'}
@@ -60,8 +70,13 @@ export default function FoodItemCard(props) {
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                    This impressive paella is a perfect party dish and a fun meal to cook together with your
-                    guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                    per 100gm
+                    <List>
+                    <ListItemText> Energy : {foodDetails.energy_100g} calories</ListItemText>
+                    <ListItemText> Sugars : {foodDetails.sugars_100g} gm</ListItemText>
+                    <ListItemText> Protein : {foodDetails.proteins_100g} gm</ListItemText>
+                    <ListItemText> Cholesterol : {foodDetails.cholesterol_100g} gm</ListItemText>
+                    </List>
                 </Typography>
             </CardContent>
             <CardActions>

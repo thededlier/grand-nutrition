@@ -12,14 +12,19 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
+import UserProfile from "../UserProfile/UserProfile.component";
+import FoodRecommendationList from "../FoodRecommendationList/FoodRecommendationList.component";
 
 const drawerWidth = 240;
 
 const userMapping = {
-    "John Doe":"1",
-    "Kevin": "2",
-    "LEO":"3",
-    "TED":"4"
+    "Brandon":"1",
+    "Levi": "2",
+    "Johnathan":"3",
+    "Kristi":"4",
+    "Michael":"5",
+    "Patrick":"6",
+    "Michelle ":"7"
 };
 
 const useStyles = makeStyles(theme => ({
@@ -70,8 +75,8 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard() {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    const [appUser,setAppUser] = React.useState({});
-    const [appUserId,setAppUserId] = React.useState(userMapping["John Doe"]);
+    const [appUser,setAppUser] = React.useState({ appuserprofile: {} });
+    const [appUserId,setAppUserId] = React.useState(0);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = event => {
@@ -110,46 +115,15 @@ export default function Dashboard() {
                     </Grid>
                     </Grid>
                     <Grid container spacing={5}>
-                        <Grid item xs={12} md={4} lg={3}>
+                        <UserProfile appUser={appUser}/>
+                        <Grid item xs={12} md={12} lg={12}>
                             <Paper className={fixedHeightPaper}>
-                                <ul>
-                                     <li> User Name : {appUser.name} </li>
-                                    {/* <li> Date of Birth : {appUser.appuserprofile.dob} </li>*/}
-                                    {/* <li> Gender : {appUser.gender === 0 ? "Male":(appUser.gender === 1 ? "Female":"Other")} </li>*/}
-                                    {/* <li> Height : {appUser.height} </li>*/}
-                                    {/* <li> Weight : {appUser.weight} </li>*/}
-                                    {/* <li> Activity Level : {appUser.activityLevel === 0 ? "Sendantry":(appUser.gender === 1 ? "Lightly Active":(appUser.gender === 2 ? "Moderately Active":"Very Active"))} </li>*/}
-                                    {/*<li> Users Goal : {appUser.gender === 0 ? "Increase":(appUser.gender === 1 ? "Maintain":"Lose")} Weight </li>*/}
-                                </ul>
-                                </Paper>
-                        </Grid>
-                        <Grid item xs={12} md={8} lg={9}>
-                            <Paper className={fixedHeightPaper}>
-                              <UserFoodHistory/>
+                                <UserFoodHistory appUserId={appUserId}/>
                             </Paper>
                         </Grid>
                         <Grid item xs={12}  >
                             <Paper className={classes.paper}>
-                                <List className={classes.list}>
-                                    <ListItem>
-                                        <FoodItemCard/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <FoodItemCard/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <FoodItemCard/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <FoodItemCard/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <FoodItemCard/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <FoodItemCard/>
-                                    </ListItem>
-                                </List>
+                                <FoodRecommendationList appUserId={appUserId}/>
                             </Paper>
                         </Grid>
                     </Grid>

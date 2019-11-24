@@ -6,28 +6,32 @@ import ListItem from "@material-ui/core/ListItem";
 export default class UserFoodHistory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userId: 347, foodHistory: [] };
+    this.state = { userId: props.appUserId, foodHistory: [] };
   }
 
-  componentDidMount() {
-    axios.get(`http://localhost:8000/food_history/${this.state.userId}/`)
-      .then(res => {
-        let history = [];
-        let foodItems = res.data['food_items'];
-        res.data['history'].forEach((hist) => {
-          let food = foodItems.find((el) => { return el['id'] === hist['food_id']});
-          if (food) {
-            history.push(food);
-          }
-        });
-        this.setState({foodHistory: history});
-        console.log(this.state.foodHistory);
-      }).catch(error => console.log(error));
+  componentDidUpdate(prevProps) {
+    if(this.props.appUserId !== prevProps.appUserId) {
+        console.log('updated', prevProps, this.props);
+        axios.get(`http://localhost:8000/food_history/${this.props.appUserId}/`)
+            .then(res => {
+                let history = [];
+                let foodItems = res.data['food_items'];
+                res.data['history'].forEach((hist) => {
+                    let food = foodItems.find((el) => {
+                        return el['id'] === hist['food_id']
+                    });
+                    if (food) {
+                        history.push(food);
+                    }
+                });
+                this.setState({foodHistory: history});
+            }).catch(error => console.log(error));
+    }
   }
 
   render() {
     const foodItems = this.state.foodHistory.map((item, key) =>
-        <ListItem><li key={item.id}>{item.name}</li></ListItem>
+        <ListItem key={key}>{item.name}</ListItem>
     );
     return (
       <div>
