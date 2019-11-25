@@ -6,6 +6,7 @@ from grandbackend.serializers import AppUserSerializer, AppUserProfileSerializer
 from .recsys import *
 import pickle
 import os
+import time
 
 @api_view(['POST', 'GET', 'DELETE'])
 def app_user_details(request, pk):
@@ -17,6 +18,7 @@ def app_user_details(request, pk):
     # Read
     if request.method == 'GET':
         serializer = AppUserSerializer(app_user)
+        time.sleep(2)
         return JsonResponse(serializer.data)
 
     # Update
@@ -102,6 +104,7 @@ def food_item_details(request, pk):
         return HttpResponse(status=404)
 
     serializer = FoodItemSerializer(food_item)
+    time.sleep(2)
     return JsonResponse(serializer.data)
 
 @api_view(['GET'])
@@ -135,6 +138,7 @@ def food_recommend(request, user_id):
         return HttpResponse(status=500)
 
     serializer = FoodItemSerializer(food_item, many = True)
+    time.sleep(2)
     return JsonResponse(serializer.data, safe = False)
 
 @api_view(['GET'])
@@ -155,4 +159,5 @@ def food_history(request, user_id):
 
     food_items = FoodItem.objects.filter(id__in=food_ids)[:5]
     food_serializer = FoodItemSerializer(food_items, many=True)
+    time.sleep(2)
     return JsonResponse({ 'history': history_serializer.data, 'food_items': food_serializer.data}, safe = False)
