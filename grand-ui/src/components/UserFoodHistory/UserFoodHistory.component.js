@@ -35,7 +35,6 @@ export default class UserFoodHistory extends React.Component {
     );
     return (
       <div>
-        <h4>Food History</h4>
         <List>
           {foodItems}
         </List>
