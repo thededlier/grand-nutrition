@@ -86,7 +86,6 @@ export default function SignUp() {
                                 id="email"
                                 label="Email Address"
                                 name="email"
-                                // autoComplete="email"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -98,7 +97,6 @@ export default function SignUp() {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                // autoComplete="current-password"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -108,6 +106,7 @@ export default function SignUp() {
                             />
                         </Grid>
                     </Grid>
+                    <Link to="questions">
                     <Button
                         type="submit"
                         fullWidth
@@ -117,6 +116,7 @@ export default function SignUp() {
                     >
                         Sign Up
                     </Button>
+                    </Link>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link to="signin" variant="body2">
