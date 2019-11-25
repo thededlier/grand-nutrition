@@ -7,6 +7,9 @@ import {Route, Router} from 'react-router-dom';
 import DashboardContainer from "../containers/Dashboard.container";
 import MenuAppBarContainer from "../containers/MenuAppBar.container";
 import ExplicitQuestions from "./ExplicitQuestions/ExplicitQuestions.component";
+import Questionnaire from "./Questionnair/Questionnair.component";
+import ProfilingComponent from "./Profiling/Profiling.component";
+import KnowYourTaste from "./KnowYourTaste/KnowYourTaste.component";
 
 
 function App() {
@@ -19,7 +22,10 @@ function App() {
                   <Route path="/signin" component={SignInComponent} />
                   <Route path="/signup" component={SignUp} />
                   <Route path="/dashboard" component={DashboardContainer} />
+                  <Route path="/questions1" component={Questionnaire} />
                   <Route path="/questions" component={ExplicitQuestions} />
+                  <Route path="/profiling" component={ProfilingComponent} />
+                  <Route path="/know-your-taste" component={KnowYourTaste} />
               </div>
           </Router>
       </React.Fragment>

@@ -33,10 +33,9 @@ class FoodRecommendationList extends React.Component {
     }
 
     render() {
-        let max = 57;
+        let max = 445;
         let randomImageArrayList = Array.from({length: this.state.recommendationList.length}, () => Math.floor(Math.random() * max));
         const {classes} = this.props;
-        console.log(randomImageArrayList);
         console.log(this.state.recommendationList);
         const recommendations = this.state.recommendationList.map((item, key) =>
             <ListItem key={key}>
