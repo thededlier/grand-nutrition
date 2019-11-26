@@ -9,7 +9,7 @@ import MenuAppBarContainer from "../containers/MenuAppBar.container";
 import ExplicitQuestions from "./ExplicitQuestions/ExplicitQuestions.component";
 import Questionnaire from "./Questionnair/Questionnair.component";
 import ProfilingComponent from "./Profiling/Profiling.component";
-import KnowYourTaste from "./KnowYourTaste/KnowYourTaste.component";
+import KnowTaste from "./KnowTaste/KnowTaste.component";
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
                   <Route path="/questions1" component={Questionnaire} />
                   <Route path="/questions" component={ExplicitQuestions} />
                   <Route path="/profiling" component={ProfilingComponent} />
-                  <Route path="/know-your-taste" component={KnowYourTaste} />
+                  <Route path="/know-your-taste" component={KnowTaste} />
               </div>
           </Router>
       </React.Fragment>

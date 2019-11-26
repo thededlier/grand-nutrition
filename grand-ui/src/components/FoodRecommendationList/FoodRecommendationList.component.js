@@ -23,6 +23,7 @@ class FoodRecommendationList extends React.Component {
 
     componentDidUpdate(prevProps) {
         if(this.props.appUserId !== prevProps.appUserId) {
+            this.setState({recommendationList: []});
             console.log('updated', prevProps, this.props);
             axios.get(`http://localhost:8000/user_recommendation/${this.props.appUserId}`)
                 .then(res => {

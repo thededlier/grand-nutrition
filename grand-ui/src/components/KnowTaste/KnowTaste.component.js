@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import {makeStyles} from "@material-ui/core";
+import {CardActions, makeStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -9,6 +9,9 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import tileDataSet from "../../tileData";
+import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
 
 const tileData = tileDataSet;
 const useStyles = makeStyles(theme => ({
@@ -48,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function KnowYourTaste() {
+export default function KnowTaste() {
     const classes = useStyles();
 
     return(
@@ -60,6 +63,7 @@ export default function KnowYourTaste() {
             </Grid>
             <Grid container spacing={8}>
                 <Grid item xs={12}>
+                    <Card>
                     <Paper className={classes.paper} style={{height: 800}}>
                             <div className={classes.root}>
                                 <GridList cellHeight={200} spacing={1} className={classes.gridList}>
@@ -70,7 +74,7 @@ export default function KnowYourTaste() {
                                                 title={tile.title}
                                                 titlePosition="top"
                                                 actionIcon={
-                                                    <IconButton aria-label={`star ${tile.title}`} className={classes.icon}>
+                                                    <IconButton aria-label={`star ${tile.title}`} className={classes.icon} color={'secondary'}>
                                                         <StarBorderIcon />
                                                     </IconButton>
                                                 }
@@ -81,7 +85,15 @@ export default function KnowYourTaste() {
                                     ))}
                                 </GridList>
                             </div>
+                            <CardActions>
+                                <Link to='dashboard'>
+                                <Button size="small" color="primary" style={{marginLeft: 900}}>
+                                    Continue
+                                </Button>
+                                </Link>
+                            </CardActions>
                     </Paper>
+                    </Card>
                 </Grid>
             </Grid>
         </Container>
