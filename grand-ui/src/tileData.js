@@ -22,7 +22,7 @@ let shuffleImages = shuffle(images).slice(210);
 const tileData = shuffleImages.reduce((arr,img) => {
     arr.push({
         img: img,
-        title: 'fun',
+        title: '',
         author: 'image by Free-Photos on Pixabay',
         featured: true,
     });

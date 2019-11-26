@@ -11,7 +11,6 @@ export default class UserFoodHistory extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.appUserId !== prevProps.appUserId) {
-        console.log('updated', prevProps, this.props);
         axios.get(`http://localhost:8000/food_history/${this.props.appUserId}/`)
             .then(res => {
                 let history = [];
@@ -21,6 +20,7 @@ export default class UserFoodHistory extends React.Component {
                         return el['id'] === hist['food_id']
                     });
                     if (food) {
+                        console.log('food', food);
                         history.push(food);
                     }
                 });
@@ -31,7 +31,12 @@ export default class UserFoodHistory extends React.Component {
 
   render() {
     const foodItems = this.state.foodHistory.map((item, key) =>
-        <ListItem key={key}>{item.name}</ListItem>
+        <ListItem key={key}>
+            <div>{item.name}</div>
+            &nbsp;&nbsp;&nbsp;
+            <span/>
+            <div>{item.energy_100g*0.294} &nbsp; Kcal</div>
+        </ListItem>
     );
     return (
       <div>

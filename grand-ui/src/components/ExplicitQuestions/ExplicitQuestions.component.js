@@ -76,7 +76,7 @@ export default class ExplicitQuestions extends Component {
             const parsedValue = parser(data.get(name));
             data.set(name, parsedValue);
           }
-          console.log(data.get(name));
+
         }
 
         var object = {};

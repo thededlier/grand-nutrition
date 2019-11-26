@@ -17,13 +17,12 @@ import LoadingOverlay from 'react-loading-overlay';
 const drawerWidth = 240;
 
 const userMapping = {
-    "Brandon":"1",
     "Levi": "2",
     "Johnathan":"3",
     "Kristi":"4",
     "Michael":"5",
-    "Patrick":"6",
-    "Michelle ":"7"
+    "Mr Duncan":"13",
+    "Molly": "34"
 };
 
 const useStyles = makeStyles(theme => ({
@@ -85,7 +84,6 @@ export default function Dashboard() {
 
     const handleClose = (eventKey) => {
         setAnchorEl(null);
-        console.log(eventKey)
     };
 
     const handleOnClick = (id) => {
@@ -140,7 +138,7 @@ export default function Dashboard() {
                         </Grid>
                         <Grid item xs={12}  >
                             <Paper className={classes.paper}>
-                                <FoodRecommendationList appUserId={appUserId}/>
+                                <FoodRecommendationList appUser={appUser}/>
                             </Paper>
                         </Grid>
                     </Grid>

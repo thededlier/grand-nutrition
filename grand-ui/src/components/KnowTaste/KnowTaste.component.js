@@ -7,11 +7,12 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import tileDataSet from "../../tileData";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+
 
 const tileData = tileDataSet;
 const useStyles = makeStyles(theme => ({
@@ -54,9 +55,19 @@ const useStyles = makeStyles(theme => ({
 export default function KnowTaste() {
     const classes = useStyles();
 
+    let [isLiked, setIsLiked] = React.useState('default');
+
+
+
+    function toggleState() {
+        let val  = (isLiked === 'default') ? 'secondary' : 'default';
+        setIsLiked(val);
+    }
+
     return(
         <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={12}>
+                <h2>We would like to know more about your taste</h2>
                 <br/>
                 <br/>
                 <br/>
@@ -75,7 +86,7 @@ export default function KnowTaste() {
                                                 titlePosition="top"
                                                 actionIcon={
                                                     <IconButton aria-label={`star ${tile.title}`} className={classes.icon} color={'secondary'}>
-                                                        <StarBorderIcon />
+                                                        <FavoriteBorderIcon color={isLiked} onClick={toggleState}/>
                                                     </IconButton>
                                                 }
                                                 actionPosition="left"

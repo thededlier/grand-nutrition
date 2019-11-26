@@ -14,30 +14,53 @@ const styles = () => ({
     },
 });
 
+const factor = 4.184;
+const dict = {
+    //Increase
+    0: {
+        lowerLimit: 300*factor,
+        higherLimit: 2000*factor,
+    },
+    //Maintain
+    1: {
+        lowerLimit: 150*factor,
+        higherLimit: 300*factor,
+    },
+    //Loose
+    2:{
+        lowerLimit: 0*factor,
+        higherLimit: 150*factor,
+    }
+};
+
 class FoodRecommendationList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { userId: props.appUserId, recommendationList: [] };
+        this.state = { userId: props.appUser.id, recommendationList: [] };
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.appUserId !== prevProps.appUserId) {
+        if(this.props.appUser.id !== prevProps.appUser.id) {
             this.setState({recommendationList: []});
-            console.log('updated', prevProps, this.props);
-            axios.get(`http://localhost:8000/user_recommendation/${this.props.appUserId}`)
+            axios.get(`http://localhost:8000/user_recommendation/${this.props.appUser.id}`)
                 .then(res => {
-                    this.setState({recommendationList: res.data})
+                    let filteredList = this.filterRecommendationList(res.data, this.props.appUser.appuserprofile.usersGoal);
+                    this.setState({recommendationList: filteredList})
                     }).
                     catch(error => console.log(error));
         }
+    }
+
+    filterRecommendationList(recommendations, goal) {
+        console.log(recommendations, goal);
+        return recommendations.filter((item) => item['energy_100g']>dict[goal].lowerLimit && item['energy_100g'] < dict[goal].higherLimit ).sort((a,b) => b['energy_100g']-a['energy_100g']);
     }
 
     render() {
         let max = 445;
         let randomImageArrayList = Array.from({length: this.state.recommendationList.length}, () => Math.floor(Math.random() * max));
         const {classes} = this.props;
-        console.log(this.state.recommendationList);
         const recommendations = this.state.recommendationList.map((item, key) =>
             <ListItem key={key}>
                 <FoodItemCard foodDetails={item} imageId={randomImageArrayList[key]}/>

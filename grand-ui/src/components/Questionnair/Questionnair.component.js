@@ -37,20 +37,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-    return ['Name', 'Date of Birth', 'Gender', 'Height', 'Weight'];
+    return ['Date of Birth', 'Gender', 'Height', 'Weight'];
 }
 
 function getStepContent(step) {
     switch (step) {
+        // case 0:
+        //     return (<NameInput/>);
         case 0:
-            return (<NameInput/>);
-        case 1:
             return (<DateOfBirthInput/>);
-        case 2:
+        case 1:
             return (<GenderInput/>);
-        case 3:
+        case 2:
             return (<HeightInput/>);
-        case 4:
+        case 3:
             return (<WeightInput/>);
         default:
             return 'Unknown step';
@@ -75,7 +75,6 @@ export default function Questionnaire() {
     };
 
     const handleContinue = () => {
-        console.log('Continue');
     };
 
     return (

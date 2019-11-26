@@ -52,7 +52,6 @@ export default function FoodItemCard(props) {
         setIsLiked('default');
         setIsDisLiked(val);
     };
-    console.log(props.foodDetails);
     const foodDetails = props.foodDetails;
     return (
         <Card className={classes.card}>
@@ -72,7 +71,7 @@ export default function FoodItemCard(props) {
                 <Typography variant="body2" color="textSecondary" component="p">
                     per 100gm
                     <List>
-                    <ListItemText> Energy : {foodDetails.energy_100g} calories</ListItemText>
+                    <ListItemText> Energy : {foodDetails.energy_100g * 0.239} kCal</ListItemText>
                     <ListItemText> Sugars : {foodDetails.sugars_100g} gm</ListItemText>
                     <ListItemText> Protein : {foodDetails.proteins_100g} gm</ListItemText>
                     <ListItemText> Cholesterol : {foodDetails.cholesterol_100g} gm</ListItemText>
