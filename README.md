@@ -1,5 +1,7 @@
 # grand-nutrition
-TCD Team Grand Nutrition Application
+TCD Team Grand Nutrition Application. 
+
+This application was done as a part of the course CS7IS5- Adaptive Application. This adaptive application provides users with a personalized food recommendation based on their preferences, their food history, their calorific profile, their goal and other users' history and model as well.
 
 
 ## Setup backend development environment
